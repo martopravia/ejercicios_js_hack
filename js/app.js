@@ -10,7 +10,7 @@ function digits() {
 // console.log(digits()); solo usado para probar
 
 // Ejercicio 2 (7)
-// crear funciuon countVowels que recibe un str y retorne el numero de vocales que tiene
+// crear funcion countVowels que recibe un str y retorne el numero de vocales que tiene
 function countVowels(str) {
   let vowels = "aeiouAEIOUáéíóúÁÉÍÓÚ";
   return str.split("").filter((letter) => vowels.includes(letter)).length;
@@ -149,7 +149,7 @@ function optimalPath(arr) {
 }
 
 console.log(optimalPath(["NORTE", "SUR"]));
-console.log(optimalPath(["NORTE", "SUR", "SUR"]));
+console.log(optimalPath(["NORTE", "SUAR", "SUR"]));
 console.log(optimalPath(["NORTE", "SUR", "SUR", "NORTE"]));
 console.log(optimalPath(["NORTE", "SUR", "SUR", "SUR"]));
 console.log(
@@ -161,16 +161,25 @@ console.log(optimalPath(["NORTE", "OESTE", "SUR", "ESTE"]));
 // function encrypt13 recibe un strg y retorna nuevo str encriptado
 // debe tener las letras corridas 13 lugares, ej: la A es la N, tanto minuscula, cómo mayúscula, a la T la G (t => g), solo alfabeto ingles
 function encrypt13(str) {
-  let abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS";
+  let abc = "abcdefghijklmnopqrstuvwxyzBCDEFGHIJKLMNOPQRSTUVWXYZ";
   let strSplit = str.split("");
   let result = "";
   for (let letter of strSplit) {
-    let newLetter = abc.indexOf(letter);
-    result += abc[newLetter + 13];
+    let index = abc.indexOf(letter);
+
+    if (index === -1) {
+      result += letter;
+    } else if (index < 26) {
+      let newIndex = (index + 13) % 26;
+      result += abc[newIndex];
+    } else {
+      let newIndex = ((index - 26 + 13) % 26) + 26;
+      result += abc[newIndex];
+    }
   }
   return result;
 }
 console.log(encrypt13("hola"));
 console.log(encrypt13("CHAU"));
-console.log(encrypt13("Titulo"));
-console.log(encrypt13("Hack academy 2022"));
+console.log(encrypt13("Título"));
+console.log(encrypt13("HACK academy 2022"));
