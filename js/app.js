@@ -183,3 +183,133 @@ console.log(encrypt13("hola"));
 console.log(encrypt13("CHAU"));
 console.log(encrypt13("Título"));
 console.log(encrypt13("HACK academy 2022"));
+
+// ejercicio 10 (15)
+// resolverse con .map, funcion passOrFail parametros un array de objetos, cada objeto tiene 3 propiedades: firstname (str)
+// lastname(str) y grade (number), la f(x) debe examinar la propiedad grade y si la nota es >= 5, agregar una propiedad result
+// con str pass, los menores no se agrega nada
+// debe retornar un nuevo arr creado por map, con misma cantidad de objetos que el arr de entrada pero con result agregado
+
+// Ejemplo 1:
+// passOrFail([
+//   { firstname: 'John', lastname: 'Doe', grade: 7 },
+//   { firstname: 'Alice', lastname: 'Smith', grade: 3 },
+//   { firstname: 'Bob', lastname: 'Johnson', grade: 6 },
+// ])
+
+// // Respuesta 1:
+// [
+//     { firstname: 'John', lastname: 'Doe', grade: 7, result: 'pass' },
+//     { firstname: 'Alice', lastname: 'Smith', grade: 3 },
+//     { firstname: 'Bob', lastname: 'Johnson', grade: 6, result: 'pass' },
+// ]
+let estudiantes = [
+  { firstname: "John", lastname: "Doe", grade: 7 },
+  { firstname: "Alice", lastname: "Smith", grade: 3 },
+  { firstname: "Bob", lastname: "Johnson", grade: 6 },
+];
+
+function passOrFail(estudiantes) {
+  return estudiantes.map((estudiante) => {
+    if (estudiante.grade > 5) {
+      return {
+        ...estudiante,
+        result: "pass",
+      };
+    } else {
+      return {
+        ...estudiante,
+      };
+    }
+  });
+}
+
+console.log(passOrFail(estudiantes));
+
+// ejercicio 11 (16) se debe de resolver con dictionary, crear piedra papel o tijera, f(x) play recibe un str que puede ser piedra, papel o
+// tijera, la funcion debe definir que movimiento hace la computadora de manera aleatoria y determinar un ganador, usar math.
+
+// | `play("Piedra")` | `"La computadora eligió Papel. Perdiste.”` |
+// | `play("Piedra")` | `"La computadora eligió Tijeras. Ganaste.”` |
+// | `play("Papel")` | `"La computadora eligió Papel. Empataron.”` |
+// | `play("Papel")` | `"La computadora eligió Tijeras. Perdiste.”` |
+
+function play(election) {
+  let options = {
+    1: "Piedra",
+    2: "Papel",
+    3: "Tijera",
+  };
+  let randomPcElections = Math.floor(Math.random() * 3 + 1);
+  let resultPc = options[randomPcElections];
+
+  // optimizarlo desde acá
+
+  //   if (eleccion === "Piedra" && resultPc === "Tijera")
+  //     return `La computadora eligió ${resultPc}. Ganaste`;
+  //   if (eleccion === "Piedra" && resultPc === "Papel")
+  //     return `La computadora eligió ${resultPc}. Perdiste`;
+  //   if (eleccion === "Tijera" && resultPc === "Papel")
+  //     return `La computadora eligió ${resultPc}. Ganaste`;
+  //   if (eleccion === "Tijera" && resultPc === "Piedra")
+  //     return `La computadora eligió ${resultPc}. Perdiste`;
+  //   if (eleccion === "Papel" && resultPc === "Piedra")
+  //     return `La computadora eligió ${resultPc}. Ganaste`;
+  //   if (eleccion === "Papel" && resultPc === "Tijera")
+  //     return `La computadora eligió ${resultPc}. Perdiste`;
+  //   else return `No es una opción válida, seleccione Piedra, Papel o Tijera`;
+  let validOptions = ["Piedra", "Papel", "Tijera"];
+
+  if (!validOptions.includes(election)) {
+    return `No es una opción válida, seleccione Piedra, Papel o Tijera`;
+  }
+
+  if (election === resultPc)
+    return `La computadora eligió ${resultPc}. Empataron`;
+
+  let winnersCombinations = {
+    Piedra: "Tijera",
+    Papel: "Piedra",
+    Tijera: "Piedra",
+  };
+
+  if (winnersCombinations[election] === resultPc) {
+    return `La computadora eligió ${resultPc}. Ganaste.`;
+  } else {
+    return `La computadora eligió ${resultPc}. Perdiste.`;
+  }
+}
+console.log(play("Tijera"));
+console.log(play("Papel"));
+console.log(play("Piedra"));
+console.log(play("Botella"));
+
+// ejercicio 12 (17) crear f(x) durationForHumans que recibe un numero representando segundos y retorne str con texto que indique la cantidad
+// de tiempo transcurrido, contemplando un año de 365 dias
+// durationForHumans(0)
+// "ahora”
+// durationForHumans(62)
+// "1 minuto y 2 segundos”
+// durationForHumans(3662)
+// "1 hora, 1 minuto y 2 segundos”
+// durationForHumans(43424234)
+// "1 año, 137 días, 14 horas, 17 minutos
+// y 14 segundos”
+// durationForHumans(4342440)
+// "50 días, 6 horas y 14 minutos”
+
+// function durationForHumans(num) {
+//   let units = {
+//     seconds: 1,
+//     minutes: 60,
+//     hours: 3600,
+//     days: 86400,
+//     years: 31536000,
+//   };
+
+//   if (seconds === 0) return "ahora"
+//   let result = []
+//   for (let unit of units){
+
+//   }
+// }
