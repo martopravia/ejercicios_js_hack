@@ -117,6 +117,7 @@ console.log(correctParentheses("()"));
 console.log(correctParentheses(")("));
 console.log(correctParentheses("(()"));
 console.log(correctParentheses("("));
+console.log(correctParentheses("(())((()())())"));
 
 // ejercicio 8 (13)
 // funcion optimalPath, recibe arr que puede ser "NORTE", "SUR", "ESTE" Y "OESTE", indica el camino a seguir para un determinado destino
@@ -298,18 +299,43 @@ console.log(play("Botella"));
 // durationForHumans(4342440)
 // "50 días, 6 horas y 14 minutos”
 
-// function durationForHumans(num) {
-//   let units = {
-//     seconds: 1,
-//     minutes: 60,
-//     hours: 3600,
-//     days: 86400,
-//     years: 31536000,
-//   };
+function durationForHumans(seconds) {
+  if (seconds === 0) return "ahora";
 
-//   if (seconds === 0) return "ahora"
-//   let result = []
-//   for (let unit of units){
+  const years = Math.floor(seconds / (365 * 24 * 60 * 60));
+  seconds = seconds % (365 * 24 * 60 * 60);
 
-//   }
-// }
+  const days = Math.floor(seconds / (24 * 60 * 60));
+  seconds = seconds % (24 * 60 * 60);
+
+  const hours = Math.floor(seconds / (60 * 60));
+  seconds = seconds % (60 * 60);
+
+  const minutes = Math.floor(seconds / 60);
+  seconds = seconds % 60;
+
+  let result = [];
+
+  if (years > 0) {
+    result.push(`${years} año${years > 1 ? "s" : ""}`);
+  }
+  if (days > 0) {
+    result.push(`${days} día${days > 1 ? "s" : ""}`);
+  }
+  if (hours > 0) {
+    result.push(`${hours} hora${hours > 1 ? "s" : ""}`);
+  }
+  if (minutes > 0) {
+    result.push(`${minutes} minuto${minutes > 1 ? "s" : ""}`);
+  }
+  if (seconds > 0) {
+    result.push(`${seconds} segundo${seconds > 1 ? "s" : ""}`);
+  }
+  if (result.length === 1) return result[0];
+  return result.slice(0, -1).join(", ") + " y " + result.slice(-1);
+}
+console.log(durationForHumans(0));
+console.log(durationForHumans(62));
+console.log(durationForHumans(3662));
+console.log(durationForHumans(43424234));
+console.log(durationForHumans(4342440));
