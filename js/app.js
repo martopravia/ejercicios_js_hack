@@ -53,13 +53,11 @@ function convert(num, unit) {
 
   if (num === 0) return "0 km";
   if (num === 0) return "0 mi";
-  if (str === "mi") {
-    return (num * 1.6093).toFixed(2) + " km";
-  }
-  if (str === "km") {
-    return (num * 0.6214).toFixed(2) + " mi";
-  }
+  if (str === "mi") return (num * 1.6093).toFixed(2) + " km";
+  if (str === "km") return (num * 0.6214).toFixed(2) + " mi";
 }
+
+// toFixed (me devuelve str) con Math, validar si no es correcto
 console.log(convert(0, "mi"));
 console.log(convert(0, "km"));
 console.log(convert(100, "mi"));
@@ -102,10 +100,10 @@ console.log(
 // forma consistente, retornar true y sino false.
 function correctParentheses(str) {
   let count = 0;
-  for (let symbol of str) {
+  for (const symbol of str) {
     if (symbol === "(") {
       count++;
-    } else if ((symbol = ")")) {
+    } else if (symbol === ")") {
       count--;
       if (count < 0) return false;
     }
@@ -130,21 +128,19 @@ console.log(correctParentheses("(())((()())())"));
 // optimalPath(["NORTE", "SUR", "SUR", "ESTE", "OESTE", "NORTE", "OESTE"]) => ["OESTE"]
 // optimalPath(["NORTE", "OESTE", "SUR", "ESTE"]) => ["NORTE", "OESTE", "SUR", "ESTE"]
 
-function optimalPath(arr) {
-  let opposites = {
+function optimalPath(path) {
+  const opposites = {
     NORTE: "SUR",
     SUR: "NORTE",
     ESTE: "OESTE",
     OESTE: "ESTE",
   };
 
-  let result = [];
-  for (let cardinalDirection of arr) {
-    if (opposites[cardinalDirection] === result[result.length - 1]) {
+  const result = [];
+  for (const cardinalDirection of path) {
+    if (opposites[cardinalDirection] === result[result.length - 1])
       result.pop();
-    } else {
-      result.push(cardinalDirection);
-    }
+    else result.push(cardinalDirection);
   }
   return result;
 }
@@ -162,19 +158,18 @@ console.log(optimalPath(["NORTE", "OESTE", "SUR", "ESTE"]));
 // function encrypt13 recibe un strg y retorna nuevo str encriptado
 // debe tener las letras corridas 13 lugares, ej: la A es la N, tanto minuscula, cómo mayúscula, a la T la G (t => g), solo alfabeto ingles
 function encrypt13(str) {
-  let abc = "abcdefghijklmnopqrstuvwxyzBCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let strSplit = str.split("");
+  const abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let result = "";
-  for (let letter of strSplit) {
-    let index = abc.indexOf(letter);
+  for (const letter of str) {
+    const index = abc.indexOf(letter);
 
     if (index === -1) {
       result += letter;
     } else if (index < 26) {
-      let newIndex = (index + 13) % 26;
+      const newIndex = (index + 13) % 26;
       result += abc[newIndex];
     } else {
-      let newIndex = ((index - 26 + 13) % 26) + 26;
+      const newIndex = ((index - 26 + 13) % 26) + 26;
       result += abc[newIndex];
     }
   }
@@ -314,7 +309,7 @@ function durationForHumans(seconds) {
   const minutes = Math.floor(seconds / 60);
   seconds = seconds % 60;
 
-  let result = [];
+  const result = [];
 
   if (years > 0) {
     result.push(`${years} año${years > 1 ? "s" : ""}`);
